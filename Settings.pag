@@ -1,0 +1,341 @@
+VERSION 5.00
+Begin VB.PropertyPage Settings 
+   Caption         =   "Settings"
+   ClientHeight    =   5100
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   7860
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   5100
+   ScaleWidth      =   7860
+   Begin VB.TextBox txtxCursorType 
+      Height          =   330
+      Left            =   3645
+      TabIndex        =   5
+      Tag             =   "Numeric"
+      Top             =   1080
+      Width           =   3825
+   End
+   Begin VB.TextBox txtxAuthMode 
+      Height          =   330
+      Left            =   3645
+      TabIndex        =   8
+      Tag             =   "Numeric"
+      Top             =   3180
+      Width           =   3825
+   End
+   Begin VB.TextBox txtxLockType 
+      Height          =   330
+      Left            =   3645
+      TabIndex        =   7
+      Tag             =   "Numeric"
+      Top             =   2460
+      Width           =   3825
+   End
+   Begin VB.TextBox txtxCursorLocation 
+      Height          =   330
+      Left            =   3645
+      TabIndex        =   6
+      Tag             =   "Numeric"
+      Top             =   1785
+      Width           =   3825
+   End
+   Begin VB.CheckBox Check1 
+      Caption         =   "    SQL"
+      Height          =   285
+      Left            =   180
+      TabIndex        =   0
+      Top             =   90
+      Width           =   1725
+   End
+   Begin VB.Frame Frame1 
+      Height          =   2850
+      Left            =   225
+      TabIndex        =   12
+      Top             =   315
+      Width           =   3165
+      Begin VB.TextBox txtxServerName 
+         Height          =   330
+         Left            =   225
+         TabIndex        =   3
+         Tag             =   "Frame1"
+         Top             =   2295
+         Width           =   2700
+      End
+      Begin VB.TextBox txtxPassword 
+         Height          =   330
+         Left            =   225
+         TabIndex        =   2
+         Tag             =   "Frame1"
+         Top             =   1387
+         Width           =   2700
+      End
+      Begin VB.TextBox txtxUserName 
+         Height          =   330
+         Left            =   225
+         TabIndex        =   1
+         Tag             =   "Frame1"
+         Top             =   450
+         Width           =   2700
+      End
+      Begin VB.Label lblxServerName 
+         Caption         =   "xServerName:"
+         Height          =   240
+         Left            =   225
+         TabIndex        =   15
+         Top             =   2070
+         Width           =   2700
+      End
+      Begin VB.Label lblxPassword 
+         Caption         =   "xPassword:"
+         Height          =   240
+         Left            =   225
+         TabIndex        =   14
+         Top             =   1170
+         Width           =   2700
+      End
+      Begin VB.Label lblxUserName 
+         Caption         =   "xUserName:"
+         Height          =   240
+         Left            =   225
+         TabIndex        =   13
+         Top             =   270
+         Width           =   2700
+      End
+   End
+   Begin VB.TextBox txtxDatabaseName 
+      Height          =   330
+      Left            =   3690
+      TabIndex        =   4
+      Top             =   435
+      Width           =   3825
+   End
+   Begin VB.TextBox txtxCommandText 
+      Height          =   1095
+      Left            =   225
+      MultiLine       =   -1  'True
+      ScrollBars      =   2  'Vertical
+      TabIndex        =   9
+      Top             =   3780
+      Width           =   7425
+   End
+   Begin VB.Label lblxAuthMode 
+      Caption         =   "xAuthenticationMode"
+      Height          =   240
+      Left            =   3645
+      TabIndex        =   19
+      Top             =   2925
+      Width           =   2700
+   End
+   Begin VB.Label lblxLockType 
+      Caption         =   "xLockType"
+      Height          =   240
+      Left            =   3645
+      TabIndex        =   18
+      Top             =   2205
+      Width           =   2700
+   End
+   Begin VB.Label lblxCursorLocation 
+      Caption         =   "xCursorLocation"
+      Height          =   240
+      Left            =   3645
+      TabIndex        =   17
+      Top             =   1530
+      Width           =   2700
+   End
+   Begin VB.Label lblxCursorType 
+      Caption         =   "xCursorType"
+      Height          =   240
+      Left            =   3645
+      TabIndex        =   16
+      Top             =   855
+      Width           =   2700
+   End
+   Begin VB.Label lblxDatabaseName 
+      Caption         =   "xDatabaseName:"
+      Height          =   240
+      Left            =   3645
+      TabIndex        =   11
+      Top             =   180
+      Width           =   2700
+   End
+   Begin VB.Label lblxCommandText 
+      Caption         =   "xCommandText:"
+      Height          =   240
+      Left            =   225
+      TabIndex        =   10
+      Top             =   3555
+      Width           =   2700
+   End
+End
+Attribute VB_Name = "Settings"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+Dim lngBackColor As ColorConstants
+Dim blnValue As Boolean
+
+Dim ctl As Control
+
+Private Sub Check1_Click()
+
+    blnValue = Check1.Value
+    If lngBackColor = vbWhite Or lngBackColor = 0 Then
+        lngBackColor = RGB(212, 208, 200)
+    Else
+        lngBackColor = vbWhite
+    End If
+
+    For Each ctl In Controls
+        If ctl.Tag = "Frame1" Then
+            ctl.BackColor = lngBackColor
+            ctl.Enabled = blnValue
+        End If
+    Next
+
+End Sub
+
+Private Sub PropertyPage_Initialize()
+
+    KeyPreview = True
+    Call Check1_Click
+
+End Sub
+
+Private Sub PropertyPage_KeyPress(KeyAscii As Integer)
+'
+'    For Each ctl In Controls
+'        If TypeOf ctl Is TextBox Then
+'            If ctl.Tag = "Numeric" Then
+'                If Not IsNumeric(Right(ctl.Text, 1)) Then
+''                    Dim intTemp As String
+''                    intTemp = Len(ctl.Text)
+''                    SendKeys "{Home}+{End}0"
+''                    SendKeys "0"
+'                    KeyAscii = 8
+'                End If
+'            End If
+'        End If
+'    Next
+
+End Sub
+
+Private Sub txtxAuthMode_Change()
+
+    If txtxAuthMode.Text <> "" Then
+        If Not IsNumeric(txtxAuthMode) Then
+            txtxAuthMode.SetFocus
+            SendKeys "{Home}+{End}0"
+        End If
+    End If
+
+    Changed = True
+
+End Sub
+
+Private Sub txtxAuthMode_GotFocus()
+    SendKeys "{Home}+{End}"
+End Sub
+
+Private Sub txtxCursorLocation_Change()
+
+    If txtxCursorLocation.Text <> "" Then
+        If Not IsNumeric(txtxCursorLocation) Then
+            txtxCursorLocation.SetFocus
+            SendKeys "{Home}+{End}0"
+        End If
+    End If
+
+    Changed = True
+
+End Sub
+
+Private Sub txtxCursorLocation_GotFocus()
+    SendKeys "{Home}+{End}"
+End Sub
+
+Private Sub txtxCursorType_Change()
+
+    If txtxCursorType.Text <> "" Then
+        If Not IsNumeric(txtxCursorType) Then
+            txtxCursorType.SetFocus
+            SendKeys "{Home}+{End}0"
+        End If
+    End If
+
+    Changed = True
+
+End Sub
+
+Private Sub txtxCursorType_GotFocus()
+    SendKeys "{Home}+{End}"
+End Sub
+
+Private Sub txtxLockType_Change()
+
+    If txtxLockType.Text <> "" Then
+        If Not IsNumeric(txtxLockType) Then
+            txtxLockType.SetFocus
+            SendKeys "{Home}+{End}0"
+        End If
+    End If
+
+    Changed = True
+
+End Sub
+
+Private Sub txtxLockType_GotFocus()
+    SendKeys "{Home}+{End}"
+End Sub
+
+Private Sub txtxServerName_Change()
+    Changed = True
+End Sub
+
+Private Sub txtxDatabaseName_Change()
+    Changed = True
+End Sub
+
+Private Sub txtxCommandText_Change()
+    Changed = True
+End Sub
+
+Private Sub txtxUserName_Change()
+    Changed = True
+End Sub
+
+Private Sub txtxPassword_Change()
+    Changed = True
+End Sub
+
+
+Private Sub PropertyPage_ApplyChanges()
+
+    SelectedControls(0).xServerName = txtxServerName.Text
+    SelectedControls(0).xDatabaseName = txtxDatabaseName.Text
+    SelectedControls(0).xCommandText = txtxCommandText.Text
+    SelectedControls(0).xUserName = txtxUserName.Text
+    SelectedControls(0).xPassword = txtxPassword.Text
+    SelectedControls(0).xAuthenticationMode = txtxAuthMode.Text
+    SelectedControls(0).xLockType = txtxLockType.Text
+    SelectedControls(0).xCursorType = txtxCursorType.Text
+    SelectedControls(0).xCursorLocation = txtxCursorLocation.Text
+
+End Sub
+
+
+Private Sub PropertyPage_SelectionChanged()
+
+    txtxServerName.Text = SelectedControls(0).xServerName
+    txtxDatabaseName.Text = SelectedControls(0).xDatabaseName
+    txtxCommandText.Text = SelectedControls(0).xCommandText
+    txtxUserName.Text = SelectedControls(0).xUserName
+    txtxPassword.Text = SelectedControls(0).xPassword
+    txtxAuthMode.Text = SelectedControls(0).xAuthenticationMode
+    txtxLockType.Text = SelectedControls(0).xLockType
+    txtxCursorType.Text = SelectedControls(0).xCursorType
+    txtxCursorLocation.Text = SelectedControls(0).xCursorLocation
+
+End Sub
